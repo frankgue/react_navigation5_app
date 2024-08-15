@@ -2,14 +2,9 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Drawer from "./routes/DrawerNav";
-import HomeStackScreen from "./routes/HomeStackNav";
-import PortofolioStackScreen from "./routes/PortofolioStackNav";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import ListesStackScreen from "./screens/Listes";
-import MomentsStackScreen from "./screens/Moments";
-import SignetsStackScreen from "./screens/Signets";
-import SujetsStackScreen from "./screens/Sujets";
 import CustomDrawerContent from "./components/CustomDrawerContent";
+import BottomTabNav from "./routes/BottomTabNav";
 
 // const Drawer = createDrawerNavigator();
 // const Drawer = createStackNavigator();
@@ -42,12 +37,13 @@ export default function App() {
         // }}
       >
         <Drawer.Screen
-          component={HomeStackScreen}
+          // component={HomeStackScreen}
+          component={BottomTabNav}
           name="Home"
           options={{
             title: "ACCUEIL",
             drawerIcon: () => (
-              <MaterialIcons name="home" size={24} color="grey" />
+              <MaterialIcons name="home" size={30} color="grey" />
             ),
           }}
         />

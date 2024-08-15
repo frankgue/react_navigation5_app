@@ -32,6 +32,7 @@ const HomeStackScreen = () => {
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
@@ -42,6 +43,7 @@ const HomeStackScreen = () => {
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
@@ -52,6 +54,7 @@ const HomeStackScreen = () => {
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
@@ -62,16 +65,18 @@ const HomeStackScreen = () => {
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
+          headerShown: false,
         }}
       />
       <HomeStack.Screen
         component={Moments}
         name="Moments"
         options={{
-          // title: "ACCUEIL",
+          title: "Moments",
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
+          headerShown: false,
         }}
       />
     </HomeStack.Navigator>
