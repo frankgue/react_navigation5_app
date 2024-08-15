@@ -1,20 +1,9 @@
-import { HeaderTitle } from "@react-navigation/stack";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const Home = ({ navigation, route }) => {
-  const dataObj = {
-    name: "Frank",
-    age: 33,
-    color: "royalblue",
-  };
-
   const handlePress = () => {
-    navigation.navigate("Portofolio", dataObj);
-    // navigation.navigate("Portofolio");
-    // navigation.setOptions({
-    //   headerTitle: "New Home",
-    // });
+    navigation.navigate("Profil");
   };
 
   return (
