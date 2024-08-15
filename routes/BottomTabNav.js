@@ -16,12 +16,22 @@ const BottomTabNav = () => {
           if (route.name === "Home") {
             iconName = "home";
             size = focused ? 30 : 20;
+            // color = focused ? "rebeccapurple" : "grey";
           } else if (route.name === "Settings") {
             iconName = "settings";
             size = focused ? 30 : 20;
+            // color = focused ? "rebeccapurple" : "grey";
           }
           return <MaterialIcons name={iconName} size={size} color={color} />;
         },
+
+        tabBarActiveTintColor: "rebeccapurple",
+        tabBarInactiveTintColor: "grey",
+        // tabBarActiveBackgroundColor: "#ccc",
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+        tabBarShowLabel: false,
       })}
     >
       <Tab.Screen
@@ -30,6 +40,7 @@ const BottomTabNav = () => {
         options={{
           title: "ACCUEIL",
           headerShown: false,
+          tabBarBadge: 8,
         }}
       />
       <Tab.Screen
