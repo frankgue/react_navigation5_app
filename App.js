@@ -9,6 +9,7 @@ import ListesStackScreen from "./screens/Listes";
 import MomentsStackScreen from "./screens/Moments";
 import SignetsStackScreen from "./screens/Signets";
 import SujetsStackScreen from "./screens/Sujets";
+import CustomDrawerContent from "./components/CustomDrawerContent";
 
 // const Drawer = createDrawerNavigator();
 // const Drawer = createStackNavigator();
@@ -22,22 +23,23 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          drawerPosition: "left",
-          // drawerType: "permanent",
-          drawerType: "slide",
-          // swipeEdgeWidth: 50,
-          // overlayColor: "red",
-          // drawerStyle: { backgroundColor: "grey" },
-          // drawerActiveTintColor: "white",
-          // drawerActiveBackgroundColor: "green",
-          // drawerInactiveTintColor: "yellow",
-          // drawerInactiveBackgroundColor: "red",
-          // drawerItemStyle: {
-          //   marginVertical: 30,
-          // },
-        }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        // initialRouteName="Home"
+        // screenOptions={{
+        //   drawerPosition: "left",
+        //   // drawerType: "permanent",
+        //   drawerType: "slide",
+        //   // swipeEdgeWidth: 50,
+        //   // overlayColor: "red",
+        //   // drawerStyle: { backgroundColor: "grey" },
+        //   // drawerActiveTintColor: "white",
+        //   // drawerActiveBackgroundColor: "green",
+        //   // drawerInactiveTintColor: "yellow",
+        //   // drawerInactiveBackgroundColor: "red",
+        //   // drawerItemStyle: {
+        //   //   marginVertical: 30,
+        //   // },
+        // }}
       >
         <Drawer.Screen
           component={HomeStackScreen}
