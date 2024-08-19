@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ const Login = ({ navigation }) => {
   // }, []);
 
   return (
-    <View style={styles.container}>
+    <LinearGradient style={styles.container} colors={["#1A91DA", "#FFF"]}>
       <View style={styles.logo}>
         <AntDesign name="twitter" size={80} color="white" />
       </View>
@@ -67,13 +68,13 @@ const Login = ({ navigation }) => {
           </Text>
         </Pressable>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#1A91DA",
+    // backgroundColor: "#1A91DA",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
