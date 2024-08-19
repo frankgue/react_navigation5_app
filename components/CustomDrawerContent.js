@@ -1,5 +1,5 @@
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   Avatar,
@@ -12,13 +12,34 @@ import {
   TouchableRipple,
 } from "react-native-paper";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CustomDrawerContent = (props) => {
   const [isDark, setIsDark] = useState(false);
+  const [name, setName] = useState("");
+  const [tag, setTag] = useState("");
 
   const toggleDarkTheme = () => {
     setIsDark(!isDark);
   };
+
+  const load = async () => {
+    try {
+      let userDataJsonValue = await AsyncStorage.getItem("LoginDetails");
+      // let name = await AsyncStorage.getItem("userData");
+      if (userDataJsonValue !== null) {
+        const user = JSON.parse(userDataJsonValue);
+        setName(user.firstName.concat(" " + user.lastName));
+        setTag(user.firstName.concat(user.lastName));
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    load();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -33,8 +54,8 @@ const CustomDrawerContent = (props) => {
                 }}
               />
               <View style={styles.name}>
-                <Title style={styles.title}>Frank GUEKENG</Title>
-                <Caption style={styles.caption}>@FrankGuekeng</Caption>
+                <Title style={styles.title}>{name}</Title>
+                <Caption style={styles.caption}>@{tag}</Caption>
               </View>
             </View>
             <View style={styles.followers}>
