@@ -35,10 +35,9 @@ const CustomDrawerContent = (props) => {
       if (jsonValue !== null) {
         let user = JSON.parse(jsonValue);
 
-        setLastName(user.lastName);
-        setFirstName(user.firstName);
-        setProfileImage(user.profileImage);
-        setIsAuth(true);
+        const userId = user.userId;
+
+        fetchData(userId);
       }
     } catch (error) {
       Alert.alert(error, "Nous avons un probleme", [
@@ -50,6 +49,18 @@ const CustomDrawerContent = (props) => {
         },
       ]);
     }
+  };
+  const fetchData = async (userId) => {
+    const firebaseResp = await fetch(
+      `https://react-native-ab348-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`
+    );
+
+    const fetchedData = await firebaseResp.json();
+
+    setLastName(fetchedData.lastName);
+    setFirstName(fetchedData.firstName);
+    setProfileImage(fetchedData.profileImage);
+    setIsAuth(true);
   };
 
   useEffect(() => {

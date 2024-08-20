@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 const ProfileInfos = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [profileImage, setProfileImage] = useState(
@@ -25,55 +28,13 @@ const ProfileInfos = ({ navigation }) => {
         );
       }
       setIsLoading(true);
-      //Firebase BDD
-      const firebaseResp = await fetch(
-        "https://react-native-ab348-default-rtdb.europe-west1.firebasedatabase.app/users.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            lastName: lastName,
-            firstName: firstName,
-            profileImage: profileImage,
-          }),
-        }
-      );
 
-      if (!firebaseResp.ok) {
-        throw new Error("Oups, nous avons un problème.");
-      }
-
-      const userData = await firebaseResp.json();
-      console.log(userData);
-
-      //Save data
-      saveToAsyncStorage(userData.name, firstName, lastName, profileImage);
+      dispatch(setUserInfos(firstName, lastName, profileImage));
 
       navigation.replace("Home");
     } else {
       alert("Veuillez remplir tous les champs");
     }
-  };
-
-  const saveToAsyncStorage = async (
-    userId,
-    firstName,
-    lastName,
-    profileImage
-  ) => {
-    try {
-      AsyncStorage.setItem(
-        "userProfilInfos",
-        JSON.stringify({
-          userId,
-          firstName,
-          lastName,
-          profileImage,
-        })
-      );
-    } catch (error) {}
   };
 
   return (

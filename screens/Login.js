@@ -41,8 +41,8 @@ const Login = ({ navigation }) => {
       const expireDate = new Date(dateTokenExpire);
 
       if (expireDate <= new Date() || !token || !userId) {
-        return;
         setIsAuth(true);
+        return;
       }
 
       navigation.navigate("Home");
@@ -111,11 +111,16 @@ const Login = ({ navigation }) => {
             style={styles.input}
             onChangeText={(text) => setPassword(text)}
           />
-          <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
-            <View style={styles.btnContainer}>
-              <Text style={styles.btnText}>Valider</Text>
-            </View>
-          </TouchableOpacity>
+
+          {isLoading ? (
+            <ActivityIndicator size="large" color="white" />
+          ) : (
+            <TouchableOpacity style={styles.touchable} onPress={handleSubmit}>
+              <View style={styles.btnContainer}>
+                <Text style={styles.btnText}>Valider</Text>
+              </View>
+            </TouchableOpacity>
+          )}
 
           <Pressable onPress={() => setIsSignup((prevState) => !prevState)}>
             <Text style={{ textAlign: "center", marginTop: 9 }}>
