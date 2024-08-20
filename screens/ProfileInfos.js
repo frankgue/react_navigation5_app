@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import { setUserInfos } from "../redux/actions/actionUserInfos";
 
 const ProfileInfos = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -22,14 +23,14 @@ const ProfileInfos = ({ navigation }) => {
 
   const handleSubmit = async () => {
     if (lastName.length > 0 && firstName.length > 0) {
-      if (profileImage.length == 0) {
+      if (profileImage.length === 0) {
         setProfileImage(
           "https://cdn.pixabay.com/photo/2024/04/28/20/56/lion-8726314_960_720.png"
         );
       }
       setIsLoading(true);
 
-      dispatch(setUserInfos(firstName, lastName, profileImage));
+      await dispatch(setUserInfos(firstName, lastName, profileImage));
 
       navigation.replace("Home");
     } else {

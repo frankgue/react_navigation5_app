@@ -5,9 +5,10 @@ import { useSelector } from "react-redux";
 
 const Home = ({ navigation, route }) => {
   const authUser = useSelector((state) => state.users);
-  // console.log(authUser);
+  const infosUser = useSelector((state) => state.infos);
+  console.log(infosUser);
 
-  const remove = async () => { 
+  const remove = async () => {
     try {
       await AsyncStorage.clear();
       navigation.navigate("Login");
