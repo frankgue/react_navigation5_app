@@ -1,6 +1,6 @@
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import React, { useLayoutEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 import {
   Avatar,
   Caption,
@@ -16,8 +16,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CustomDrawerContent = (props) => {
   const [isDark, setIsDark] = useState(false);
-  const [name, setName] = useState("");
-  const [tag, setTag] = useState("");
+
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [profileImage, setProfileImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
+  const [isAuth, setIsAuth] = useState(false);
 
   const toggleDarkTheme = () => {
     setIsDark(!isDark);
@@ -25,19 +30,29 @@ const CustomDrawerContent = (props) => {
 
   const load = async () => {
     try {
-      let userDataJsonValue = await AsyncStorage.getItem("LoginDetails");
-      // let name = await AsyncStorage.getItem("userData");
-      if (userDataJsonValue !== null) {
-        const user = JSON.parse(userDataJsonValue);
-        setName(user.firstName.concat(" " + user.lastName));
-        setTag(user.firstName.concat(user.lastName));
+      let jsonValue = await AsyncStorage.getItem("userProfilInfos");
+
+      if (jsonValue !== null) {
+        let user = JSON.parse(jsonValue);
+
+        setLastName(user.lastName);
+        setFirstName(user.firstName);
+        setProfileImage(user.profileImage);
+        setIsAuth(true);
       }
     } catch (error) {
-      alert(error);
+      Alert.alert(error, "Nous avons un probleme", [
+        {
+          text: "OK",
+          onPress: () => {
+            props.navigation.navigate("Login");
+          },
+        },
+      ]);
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     load();
   }, []);
 
@@ -46,18 +61,27 @@ const CustomDrawerContent = (props) => {
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContentContainer}>
           <View style={styles.userInfoContainer}>
-            <View style={styles.userInfoDetails}>
-              <Avatar.Image
-                size={80}
-                source={{
-                  uri: "https://avatars.githubusercontent.com/u/19680517?v=4",
-                }}
-              />
-              <View style={styles.name}>
-                <Title style={styles.title}>{name}</Title>
-                <Caption style={styles.caption}>@{tag}</Caption>
+            {isAuth ? (
+              <View style={styles.userInfoDetails}>
+                <Avatar.Image
+                  size={80}
+                  source={{
+                    uri: profileImage,
+                  }}
+                />
+                <View style={styles.name}>
+                  <Title style={styles.title}>
+                    {firstName.concat(" ", lastName)}
+                  </Title>
+                  <Caption style={styles.caption}>
+                    @{firstName.concat(lastName)}
+                  </Caption>
+                </View>
               </View>
-            </View>
+            ) : (
+              <ActivityIndicator size="large" color="#1A91DA" />
+            )}
+
             <View style={styles.followers}>
               <View style={styles.section}>
                 <Paragraph style={[styles.paragraph, styles.section]}>
