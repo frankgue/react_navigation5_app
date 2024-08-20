@@ -99,6 +99,10 @@ export const actionLogin = (email, password) => {
   };
 };
 
+export const actionLogout = ()  => {
+  
+}
+
 //Enregistrer la data (token, userId, dateTokenExpire )
 const actionSaveToAsyncStorage = async (token, userId, dateTokenExpire) => {
   await AsyncStorage.setItem(
