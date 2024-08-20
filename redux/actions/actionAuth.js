@@ -1,5 +1,5 @@
 //Inscription
-import { AUTH_USER } from "./../constants";
+import { AUTH_USER, LOGOUT_USER } from "./../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const actionSignup = (email, password) => {
@@ -99,9 +99,12 @@ export const actionLogin = (email, password) => {
   };
 };
 
-export const actionLogout = ()  => {
-  
-}
+//logout
+export const actionLogout = () => {
+  return {
+    type: LOGOUT_USER,
+  };
+};
 
 //Enregistrer la data (token, userId, dateTokenExpire )
 const actionSaveToAsyncStorage = async (token, userId, dateTokenExpire) => {

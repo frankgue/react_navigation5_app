@@ -13,8 +13,12 @@ import {
 } from "react-native-paper";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { actionLogout } from "../redux/actions/actionAuth";
 
 const CustomDrawerContent = (props) => {
+  const dispatch = useDispatch();
+
   const [isDark, setIsDark] = useState(false);
 
   const [lastName, setLastName] = useState("");
@@ -26,6 +30,16 @@ const CustomDrawerContent = (props) => {
 
   const toggleDarkTheme = () => {
     setIsDark(!isDark);
+  };
+
+  const handleLogout = async () => {
+    dispatch(actionLogout()); //Vider redux
+    try {
+      await AsyncStorage.clear();
+      props.navigation.navigate("Login");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const load = async () => {
@@ -174,7 +188,7 @@ const CustomDrawerContent = (props) => {
           icon={({ color, size }) => (
             <MaterialIcons name="logout" size={size} color={color} />
           )}
-          onPress={() => alert("Déconnecté")}
+          onPress={handleLogout}
         />
       </Drawer.Section>
     </View>

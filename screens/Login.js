@@ -64,6 +64,7 @@ const Login = ({ navigation }) => {
         try {
           await dispatch(actionSignup(email, password));
           navigation.replace("ProfileInfos");
+          setisLoading(false);
         } catch (error) {
           setError(error.message);
           setisLoading(false);
@@ -74,6 +75,7 @@ const Login = ({ navigation }) => {
         try {
           await dispatch(actionLogin(email, password));
           navigation.navigate("Home");
+          setisLoading(false);
         } catch (error) {
           setError(error.message);
           setisLoading(false);
@@ -88,11 +90,12 @@ const Login = ({ navigation }) => {
     return (
       <LinearGradient style={styles.container} colors={["#1A91DA", "#FFF"]}>
         <View style={styles.logo}>
-          {isLoading ? (
+          {/* {isLoading ? (
             <ActivityIndicator size="large" color="white" />
           ) : (
             <AntDesign name="twitter" size={80} color="white" />
-          )}
+          )} */}
+          <AntDesign name="twitter" size={80} color="white" />
         </View>
         <View style={styles.inputContainer}>
           <Text style={styles.text}>
