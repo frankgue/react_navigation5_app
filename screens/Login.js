@@ -74,7 +74,8 @@ const Login = ({ navigation }) => {
         setisLoading(true);
         try {
           await dispatch(actionLogin(email, password));
-          navigation.navigate("Home");
+          navigation.replace("GeoLocation");
+          // navigation.navigate("Home");
           setisLoading(false);
         } catch (error) {
           setError(error.message);

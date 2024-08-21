@@ -1,14 +1,47 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
+import { fetchInSLite } from "../database/db";
 
 const Portofolio = ({ navigation, route }) => {
-  const handlePress = () => {
-    navigation.navigate("Home");
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+
+  const { lastName, firstName, profileImage } = route.params;
+  const fetchUserInfos = async () => {
+    try {
+      const userData = await fetchInSLite();
+
+      const { latitude, longitude } = userData[0];
+
+      setLatitude(latitude);
+      setLongitude(longitude);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    fetchUserInfos();
+  }, []);
+
+  const goToMap = () => {
+    navigation.navigate("Map", {
+      latitude: latitude,
+      longitude: longitude,
+    });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>PORTOFOLIO</Text>
+      <View style={styles.profilInfos}>
+        <Image source={{ uri: profileImage }} style={styles.smallProfilImage} />
+        <Text style={styles.profilName}>
+          {firstName} {lastName}
+        </Text>
+        <Text style={styles.profilName}>lat: {latitude}</Text>
+        <Text style={styles.profilName}>long: {longitude}</Text>
+      </View>
+      <Button title="Voir la carte" onPress={goToMap} />
     </View>
   );
 };
@@ -16,24 +49,25 @@ const Portofolio = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "orange",
-    alignItems: "center",
+  },
+  profilInfos: {
+    backgroundColor: "#1A91DA",
+    height: 250,
     justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
   },
-  text: {
-    fontSize: 24,
+  smallProfilImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 150 / 2,
+    margin: 9,
+    borderWidth: 6,
+    borderColor: "white",
   },
-  btn: {
-    padding: 12,
+  profilName: {
     color: "white",
-  },
-  btnText: {
-    color: "white",
-    fontSize: 19,
-    paddingBottom: 9,
-  },
-  btnContainer: {
-    flexDirection: "row",
+    fontSize: 25,
   },
 });
 

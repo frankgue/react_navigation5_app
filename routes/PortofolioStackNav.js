@@ -8,7 +8,7 @@ const PortofolioStackScreen = () => {
   return (
     <PortofolioStack.Navigator>
       <PortofolioStack.Screen
-        name="Portofolio"
+        name="profil"
         component={Portofolio}
         options={{ title: "Portofolio", headerShown: false }}
       />

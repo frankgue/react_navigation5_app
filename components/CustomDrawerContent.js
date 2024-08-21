@@ -128,7 +128,13 @@ const CustomDrawerContent = (props) => {
               icon={({ color, size }) => (
                 <MaterialIcons name="face" size={size} color={color} />
               )}
-              onPress={() => props.navigation.navigate("Profil")}
+              onPress={() =>
+                props.navigation.navigate("Profil", {
+                  lastName: lastName,
+                  firstName: firstName,
+                  profileImage: profileImage,
+                })
+              }
             />
             <DrawerItem
               label="Listes"

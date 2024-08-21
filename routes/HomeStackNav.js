@@ -7,6 +7,7 @@ import Listes from "../screens/Listes";
 import Sujets from "../screens/Sujets";
 import Signets from "../screens/Signets";
 import Moments from "../screens/Moments";
+import InteractiveMap from "./../screens/InteractiveMap";
 
 const HomeStack = createStackNavigator();
 
@@ -73,6 +74,17 @@ const HomeStackScreen = () => {
         name="Moments"
         options={{
           title: "Moments",
+          drawerIcon: () => (
+            <MaterialIcons name="home" size={24} color="grey" />
+          ),
+          headerShown: false,
+        }}
+      />
+      <HomeStack.Screen
+        component={InteractiveMap}
+        name="Map"
+        options={{
+          title: "Carte",
           drawerIcon: () => (
             <MaterialIcons name="home" size={24} color="grey" />
           ),
